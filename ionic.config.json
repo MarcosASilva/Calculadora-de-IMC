@@ -1,0 +1,7 @@
+{
+  "name": "CalcIMC",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

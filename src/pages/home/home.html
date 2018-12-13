@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Calculo de IMC
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+ <ion-list>
+    <ion-item>
+      <ion-label>Peso</ion-label>
+      <ion-input type="number" step=0.1 min=40 (ionChange)="calcImc()" [(ngModel)]="peso" placeholder="Digite seu peso(em KG)"></ion-input>
+    </ion-item>
+  
+    <ion-item> 
+      <ion-label>Altura</ion-label>
+      <ion-input type="number" step=0.01 min=1.30 max=2.50 (ionChange)="calcImc()" [(ngModel)]="alt" placeholder="Digite sua altura(em Metros)"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nome</ion-label>
+      <ion-input [(ngModel)]="nome"></ion-input>
+    </ion-item>
+    
+    <div *ngIf="alt<1.30||alt>2.5||peso<40||nome==''||imc==0;else valid" >
+        <!-- <br>
+        <br>
+      <h3 color="primary" align="top">Preencha com dados válidos</h3> -->
+    </div>
+    <ng-template #valid>
+        <ion-item>
+
+           <ion-card>
+             <ion-card-content>
+                <p>IMC: </p>  <h1>{{imc|number:'1.1-3'}}</h1>
+                <p>Classificação: </p>  <h2>{{status}}</h2>
+                
+                <button ion-button  outline (click)="addImc(imc)" color="secondary" >Salvar</button>
+             </ion-card-content>
+           </ion-card>
+            
+          </ion-item>
+    </ng-template>
+      
+  </ion-list> 
+  <!-- <ion-searchbar (ionInput)="getItems($event)" spellcheck="true"></ion-searchbar>
+  <div *ngIf="itemsExi.length==0">
+      <p>Nenhum item encontrado</p>
+  </div>  -->
+  <ion-list>
+    <h2>IMCs Salvos:</h2>
+    <div *ngIf="items.length==0">
+        <p>Nenhum IMC salvo</p>
+    </div>  
+    <!-- <ion-item *ngFor="let item of items">
+     Nome: <b>{{item[4]}}</b> Altura: <b>{{ item[0] }}m</b> Peso: <b>{{item[1]}}kg </b> IMC: <b>{{item[2]| number:'1.1-3'}} </b> kg/m² Classificação: <b>{{item[3]}}</b>    
+    </ion-item> -->
+    <ion-searchbar (ionInput)="getItems($event)" spellcheck="true"></ion-searchbar>
+  <div *ngIf="itemsExi.length==0&&items.length>0">
+      <p>Nenhum item encontrado</p>
+  </div> 
+    <ion-list>
+        <button ion-item *ngFor="let item of itemsExi" (click)="showInfo(item)">
+            <ion-icon name="arrow-forward" item-end></ion-icon>
+          {{ item[4] }}
+        </button>  
+      </ion-list>
+
+  </ion-list>
+
+  <!-- <ion-item> 
+      <ion-label>Item a ser adicionado</ion-label>
+      <ion-input type="text" [(ngModel)]="itemAdd" ></ion-input>
+      
+    </ion-item>
+    <button (click)="add(itemAdd)"  >Adicionar</button> -->
+</ion-content>
